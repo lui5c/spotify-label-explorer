@@ -1,0 +1,307 @@
+/*
+.luis-test{
+	height: 0px;
+}
+*/
+
+.leftside-container{
+	text-align: center;
+	width: 50%;
+	height: auto;
+	display: inline-block;
+	margin-top: 20px;
+}
+
+#show-artist-search{
+	cursor: pointer;
+	font-size: 24px;
+}
+
+#show-playlist-search{
+	cursor: pointer;
+	font-size: 24px;
+	background-color: #e0e0e0;
+}
+
+#button-populate{
+	border: none;
+	border-radius: 80px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 12px;
+	padding-right: 12px;
+	font-size: 20px;
+	line-height: 1;
+	font-family: Helvetica;	
+	margin-bottom: 15px;
+}
+
+#button-populate:focus{
+	outline: 0;
+	text-decoration-color: none;
+}
+
+#button-container{
+	margin-top: 15px;
+	text-align: center;
+	width: 100%;
+}
+
+#loggedin{
+	font-family: Helvetica;
+}
+
+#top-guide{
+	display: block;
+	padding-left: 15px;
+	padding-right: 15px;
+	width: 100%;
+	font-size: 16px;
+}
+
+#assembly-container{
+	display: block;
+	height: 240px;
+	font-size: 20px;
+}
+
+#oauth{
+	height: 0px;
+	overflow: hidden;
+}
+
+.overall-container{
+	display: block;
+	text-align: left;
+	height: auto;
+	min-height: 100%;
+	width: 100%;
+}
+
+#user-profile{ /* this is also the header*/
+	width: 100%;
+	top: 0px;
+	left: 0px;
+	display: block;
+	height: 60px;
+	font-size: 30px;
+	z-index: 50;
+	padding: 20px;
+}
+
+#profile-pic {
+	height: 60px;
+	border-radius: 50%;
+	width: 60px;
+	display: inline-block;
+	position: relative;
+	padding: 10px;
+}
+
+#close-helper{
+	font-size: 10px;
+	text-decoration: italic; 
+	cursor: pointer;
+}
+
+#playlists-container{
+	margin-top: 25px;
+	width: 100%;
+	font-size: 20px;
+	height: 600px;
+	overflow-y: scroll;
+	text-align: center;
+	transition: width .2s;
+	float: left;
+}
+
+
+.playlist-table{
+	padding-top: 15px;
+	width: 90%;
+	min-width: 90%;
+	font-family: Helvetica;
+	text-align: center;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	margin: auto;
+}
+
+.playlist-table tr > *:nth-child(3){
+	display: none;
+}
+
+.artist-release-table tr > *:nth-child(2){
+	display: none;
+}
+
+.playlist-table tr:hover {
+	background-color: #e5fbe5;
+	cursor: pointer;
+}
+.playlist-table th, td {
+	text-align: center;
+	border-bottom: 1px solid #e7e7e7;
+	width: 33%;
+	transition: .4s;
+	padding-right: 15px;
+	margin: 5px;
+	padding-top: 1px;
+	padding-bottom: 2px;
+}
+
+#artists-container{
+	margin-top: 25px;
+	width: 0%;
+	font-size: 20px;
+	height: 600px;
+	overflow-y: scroll;
+	float: right;
+	text-align: left;
+	animation: width .2s;
+	padding-left: 15px;
+	display: none;
+}
+
+#artist-search-box{
+	width: 180px;
+	display: inline-block;
+}
+
+#playlist-overlay{
+	font-family: Helvetica;
+	color: #363636;
+	width: 90%;
+	height: 85%;
+	background-color: #f9f9f9;
+	border-radius: 25px;
+	position: fixed;
+	margin-bottom: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 100;
+	left: 50px;
+	top: 50px;
+	display: none;
+	box-shadow: 0px 0px 6px #999;
+}
+
+#releases-overlay{
+	font-family: Helvetica;
+	color: #363636;
+	width: 90%;
+	height: 85%;
+	background-color: #f9f9f9;
+	border-radius: 25px;
+	position: fixed;
+	margin-bottom: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 100;
+	left: 50px;
+	top: 50px;
+	display: none;
+	box-shadow: 0px 0px 6px #999;
+}
+
+#table-container {
+	margin-top: 30px;
+	margin-left: 30px;
+	margin-right: 30px;
+	z-index:101;
+	overflow-y: scroll;
+	height: 380px;
+	transition: 0.4s;
+}
+
+#overlaytitle{
+	font-size: 25px;
+	padding-left: 30px;
+	padding-top: 25px;
+}
+
+#close-playlist-overlay {
+	position: absolute;
+	font-size: 15px;
+	right: 20px;
+	top: 15px;
+	text-decoration: italic;
+	cursor: pointer;
+}
+
+#close-artist-overlay {
+	position: absolute;
+	font-size: 15px;
+	right: 20px;
+	top: 15px;
+	text-decoration: italic;
+	cursor: pointer;
+}
+
+th, thead {
+	position: sticky;
+}
+
+.overlay-table{
+	table-layout: fixed;
+	overflow-y: hidden;
+	border-spacing: 0px;
+	border-collapse: collapse;
+}
+
+.overlay-table thead{
+	text-align: left;
+}
+
+.overlay-table td{
+	text-align: left;
+	height: 15px;
+	font-size: 20px;
+	border-bottom: 1px solid #c6c6c6;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	overflow: wrap;
+	width:20%;
+	padding-left: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	overflow: ellipsis;
+	transition: .2s;
+}
+
+.overlay-table tr:hover{
+	background-color: #e0e0e0;
+	transition: .1s;
+}
+
+.overlay-table th {
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	font-size: 25px;
+}
+
+/* scrollbar shit */
+::-webkit-scrollbar {
+	width: 2px;
+	height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+  height: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: lightgreen;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: green; 
+}

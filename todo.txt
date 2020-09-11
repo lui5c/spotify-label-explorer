@@ -1,0 +1,1 @@
+add search for releases by label functionality (right hand pane) 
