@@ -48,18 +48,22 @@
         <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>        
 		</div>
 		<div id="top-guide">
+
+		<span style="float:right"><div class="hideshow" id="hide-help">hide help</div> // <div class="hideshow" id="show-help">show help</div></span>
 		<h1>welcome, <span id="person-name"></span>!</h1>
+		<div id="help">
 		<h3>how to use the label explorer </h3>
-		<p>in the left-hand pane, you can choose between browsing your playlists and searching for artists. if you click on an artist, a list of that artists's releases, along with the label that released them, will come up. if you click on a playlist, a list of the songs in the playlist will be displayed and you will be able to see what label each song on the playlist is on. in the right-hand pane, you can search Spotify for all of the releases by a particular label.</p>
+		<p>in the left-hand pane, you can choose between browsing your playlists and searching for artists. if you click on an artist, a list of that artists's releases, along with the label that released them, will come up. if you click on a playlist, a list of the songs in the playlist will be displayed and you will be able to see what label each song on the playlist is on. in the right-hand pane, you can search Spotify for all of the releases by a particular label. you can hide or show these instructions with the button in the top right corner.</p>
 		<h3>a note about Spotify's indexing of labels</h3>
-		<p>currently, there is no way to view a label's discography in Spotify, nor is there a way to retrieve a label's discography using the Spotify Web API, which this site uses. this website uses the closest approximation possible (without indexing Spotify's entire database) which is to type the following into the search bar: <code>label="sun records"</code>, replacing sun records with whatever record label's results you want to see. try it here, or try it in Spotify!</p>
+		<p>currently, there is no way to view a label's discography in Spotify, nor is there a way to retrieve a label's discography using the Spotify Web API, which this site uses. this website uses the closest approximation possible (without indexing Spotify's entire database) which is to type the following into the search bar: <code>label:"sun records"</code>, replacing sun records with whatever record label's results you want to see. on this website, search by just typing the label into the search bar. in Spotify, you have to use the <code>label:""</code> syntax.</p>
+		</div> <!-- end help div -->
 		</div>
 		<!-- begin stuff to show when logged in that is NOT user profile -->
 		<div class="overall-container">
 			<div class="leftside-container">
 			
 			<ul class="nav nav-pills nav-fill nav-justified">
-				<li id="show-playlist-search"> <a class="nav-item">look up a playlist</a> </li>
+				<li id="show-playlist-search"> <a class="nav-item">browse my playlists</a> </li>
 				<li id="show-artist-search"> <a class="nav-item">look up an artist</a> </li>
 			</ul>		
 			<div id="playlists-container">
@@ -74,19 +78,32 @@
 					<tbody>
 					</tbody>
 				</table>
-				<div id="button-container">
-			<button id="button-populate">&#43;</button>
-			</div>
-			</div>
+				<div class="button-container">
+					<button class="table-populate" id="button-populate">&#43;</button>
+				</div>
+			</div> <!-- end playlist container -->
 			
 			<div id="artists-container">
-			<input id="artist-search-box" type="text" class="form-control" placeholder="search" name="search" />
-			<button class="btn btn-outline-success my-2 my-sm-0" id="artist-search-button">go!</button>
-			<table class="playlist-table" id="artist-search-results">
-			</table>
+				<input id = "artist-search-box" type="text" class="form-control search-box" placeholder="search" name="search" />
+				<button class="btn btn-outline-success my-2 my-sm-0" id="artist-search-button">go!</button>
+				<table class="playlist-table" id="artist-search-results">
+				</table>
 			</div> <!-- end artist search container -->
 			</div> <!-- end left half container -->
 			<div id="rightside-container"> <!-- begin the search BY LABEL function -->
+				<div id="search-header">
+				<p> search by label </p>
+				</div>	
+				<input id="label-search-field" type="text" class="form-control search-box" placeholder="search" name="search" />
+				<button class="btn btn-outline-success my-2 my-sm-0" id="label-search-button">go!</button>
+				<button class="btn btn-outline-success my-2 my-sm-0" id="label-search-clear">clear results</button>
+				<div id="label-search-container">
+					<table id="label-search-results">
+					</table>
+					<div class="button-container">
+						<button class="table-populate" id="label-populate">&#43;</button>
+					</div>
+				</div> <!-- end album search results container -->
 			</div><!-- end right side container -->
 		</div> <!-- end overall-container -->
 		

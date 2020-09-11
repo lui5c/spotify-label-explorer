@@ -33,6 +33,21 @@
 	//todo: get a function that adds rows without context
 	//todo: fix table header in overlay box
 
+	const helpDiv = document.getElementById("help");
+	const showHelpButton = document.getElementById("show-help");
+	showHelpButton.onclick=showHelp;
+	const hideHelpButton = document.getElementById("hide-help");
+	hideHelpButton.onclick=hideHelp;
+
+	function hideHelp() {
+		$(helpDiv).hide();
+	}
+
+	function showHelp(){
+		$(helpDiv).show();
+	}
+
+
 	var closePlaylistOverlay = document.getElementById('close-playlist-overlay');
 	var closeArtistOverlay = document.getElementById('close-artist-overlay');
 	var dialogPlaylist = document.getElementById('songs-table');
@@ -228,6 +243,7 @@
 	
 	
 	function conductArtistSearch(){
+		//console.log("clicked");
 		var rawQuery = artistSearchBox.value;
 		var arrayOfArtistObjects;
 		clearSearchResults();
@@ -291,7 +307,7 @@
 					//response.items is an array of release objects
 					var i;
 					for (i = 0; i < response.items.length; i++){
-						parseRelease(response.items[i]);
+						parseRelease_ArtistOverlay(response.items[i]);
 					}
 				}
 		});
@@ -299,7 +315,7 @@
 		$("#selected-artist").text(artistName);
 	}
 	
-	function parseRelease(releaseObject){
+	function parseRelease_ArtistOverlay(releaseObject){
 		var url = releaseObject.href;
 		$.ajax({
 			url: url,
@@ -310,14 +326,14 @@
 			success: function(response){
 					//the response is preformatted JSON!
 					//response is album object, we want
-					addRelease(response.name, response.release_date, response.label);
+					addRelease_Artist_Overlay(response.name, response.release_date, response.label);
 				}
 		});
 	}
 	
 	var listOfReleases = document.getElementById("releases-table");
 	
-	function addRelease(name, date, label){
+	function addRelease_Artist_Overlay(name, date, label){
 		var theEnd = listOfReleases.rows.length;		
 		var newRow = listOfReleases.insertRow(theEnd);
 		newRow.classList.add("temp-row");
@@ -328,6 +344,120 @@
 		var cell3 = newRow.insertCell(2);
 		cell3.innerHTML = label;
 	}
+
+	/** code for searching by label **/
+	const labelSearchButton = document.getElementById("label-search-button");
+	const labelSearchField = document.getElementById("label-search-field");
+	const labelSearchClear = document.getElementById("label-search-clear");
+	labelSearchClear.onclick = clearLabelSearchResults;
+	labelSearchButton.onclick = showSearchByLabelResults;
+	var href;
+
+	function sethref(link){
+		href = link;
+	}
+
+	function getLabelhref(){
+		return href;
+	}
+
+	function showSearchByLabelResults(){
+		clearLabelSearchResults();
+		var searchQuery = labelSearchField.value;
+		var formattedQuery = "label:\"" + searchQuery + "\"";
+		//console.log(formattedQuery);
+		$.ajax({
+			url: 'https://api.spotify.com/v1/search',
+			method: 'GET',
+			data: {
+				q: formattedQuery,
+				type: 'album',
+				limit: '20'
+			},
+			headers: {
+				'Authorization': 'Bearer ' + access_token,
+				'Content-Type' : 'application/json',
+				'Accept' : 'application/json'
+
+			},
+			success: function(response){
+					//the response is preformatted JSON
+					var arrayOfAlbums = response.albums.items;
+					var i;
+					for (i = 0; i < arrayOfAlbums.length; i++){
+						parseRelease_labelSearch(arrayOfAlbums[i]);
+						sethref(response.albums.next);
+					}
+					labelPopulateButton.onclick = addMoreLabelReleases;
+			}
+		});
+	}
+
+	function addMoreLabelReleases(){
+		var url = getLabelhref();
+		//console.log(url);
+		$.ajax({
+			url: url,
+			method: 'GET',
+			headers: {
+				'Authorization': 'Bearer ' + access_token
+			},
+			success: function(response){
+					//the response is preformatted JSON!
+					//response is album object, we want
+					//console.log(response);
+					var arrayOfAlbums = response.albums.items;
+					var i;
+					for (i = 0; i < arrayOfAlbums.length; i++){
+						parseRelease_labelSearch(arrayOfAlbums[i]);
+					}
+					sethref(response.albums.next);
+					labelPopulateButton.onclick = addMoreLabelReleases;
+				}
+		});
+	}
+
+	const labelSearch_resultsTable = document.getElementById("label-search-results");
+
+	function parseRelease_labelSearch(album_object) {
+		//get label 
+		var url = album_object.href;
+		$.ajax({
+			url: url,
+			method: 'GET',
+			headers: {
+				'Authorization': 'Bearer ' + access_token
+			},
+			success: function(response){
+					//the response is preformatted JSON!
+					//response is album object, we want
+					//console.log(response);
+					var theEnd = labelSearch_resultsTable.rows.length;		
+					var newRow = labelSearch_resultsTable.insertRow(theEnd);
+					newRow.classList.add("temp-row");
+					var cell1 = newRow.insertCell(0);
+					cell1.innerHTML = album_object.name;
+					var cell2 = newRow.insertCell(1);
+					cell2.innerHTML = album_object.artists[0].name;
+					var cell3 = newRow.insertCell(2);
+					cell3.innerHTML = response.label;
+					var cell4 = newRow.insertCell(3);
+					cell4.innerHTML = album_object.id;
+					$(newRow).hide();
+					$(newRow).show('fast');
+				}
+		});
+
+	}
+
+	function clearLabelSearchResults(){
+		while (labelSearch_resultsTable.firstChild){
+			labelSearch_resultsTable.removeChild(labelSearch_resultsTable.firstChild);
+		}
+	}
+
+	const labelPopulateButton = document.getElementById("label-populate");
+
 
 	/** code for the hidden login **/
 	const headerWithHidden = document.getElementById("header-container");

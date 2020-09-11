@@ -12,6 +12,11 @@
 	margin-top: 20px;
 }
 
+.hideshow{
+	display: inline-block;
+	cursor: pointer;
+}
+
 #show-artist-search{
 	cursor: pointer;
 	font-size: 24px;
@@ -23,7 +28,7 @@
 	background-color: #e0e0e0;
 }
 
-#button-populate{
+.table-populate{
 	border: none;
 	border-radius: 80px;
 	padding-top: 7px;
@@ -34,14 +39,15 @@
 	line-height: 1;
 	font-family: Helvetica;	
 	margin-bottom: 15px;
+	margin-top: 8px;
 }
 
-#button-populate:focus{
+.table-populate:focus{
 	outline: 0;
 	text-decoration-color: none;
 }
 
-#button-container{
+.button-container{
 	margin-top: 15px;
 	text-align: center;
 	width: 100%;
@@ -115,6 +121,26 @@
 	float: left;
 }
 
+#label-search-container{
+	margin-top: 25px;
+	width: 100%;
+	font-size: 20px;
+	height: 600px;
+	overflow-y: scroll;
+	text-align: center;
+	transition: width .2s;
+	float: left;
+}
+
+#rightside-container{
+	text-align: center;
+	width: 50%;
+	height: auto;
+	float: right;
+	margin-top: 20px;
+	padding: 5px;
+}
+
 
 .playlist-table{
 	padding-top: 15px;
@@ -133,6 +159,14 @@
 
 .artist-release-table tr > *:nth-child(2){
 	display: none;
+}
+
+#label-search-container tr > *:nth-child(4){
+	display: none;
+}
+
+#label-search-container tr:hover{
+	background-color: #e5fbe5;
 }
 
 .playlist-table tr:hover {
@@ -157,15 +191,20 @@
 	height: 600px;
 	overflow-y: scroll;
 	float: right;
-	text-align: left;
+	text-align: center;
 	animation: width .2s;
 	padding-left: 15px;
 	display: none;
 }
 
-#artist-search-box{
-	width: 180px;
+.search-box{
+	width: 380px;
 	display: inline-block;
+}
+
+#search-header{
+	font-size: 24px;
+	padding: 5px;
 }
 
 #playlist-overlay{
