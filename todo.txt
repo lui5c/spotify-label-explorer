@@ -1,1 +1,2 @@
-add search for releases by label functionality (right hand pane) 
+add search for releases by label functionality (right hand pane)
+make artist search a native HTML form and do preventDefault()
