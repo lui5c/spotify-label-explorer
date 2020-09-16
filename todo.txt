@@ -4,3 +4,4 @@ replace '+' button with 'load more...'
 include playlists that the person follows
 make releases clickable
  - maybe have an external listen on spotify link
+long term: phone accessible
