@@ -148,6 +148,12 @@ app.get('/secret', (req, res) => {
 	res.send('Nice!')
 });
 
-app.listen(8000, () =>{
-	console.log('Example app listening on port 8000!')
+
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
+
+app.listen(port, () =>{
+	console.log('Spotify Web app listening on port ' + port)
 });
