@@ -40,11 +40,11 @@
 	hideHelpButton.onclick=hideHelp;
 
 	function hideHelp() {
-		$(helpDiv).hide();
+		$(helpDiv).hide(400);
 	}
 
 	function showHelp(){
-		$(helpDiv).show();
+		$(helpDiv).show(400);
 	}
 
 

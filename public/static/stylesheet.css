@@ -3,10 +3,14 @@
 	height: 0px;
 }
 */
+.body{
+	text-align: center;
+}
+
 
 .leftside-container{
 	text-align: center;
-	width: 50%;
+	width: 45%;
 	height: auto;
 	display: inline-block;
 	margin-top: 20px;
@@ -76,12 +80,12 @@
 	overflow: hidden;
 }
 
-.overall-container{
-	display: block;
+#overall-container{
 	text-align: left;
 	height: auto;
 	min-height: 100%;
-	width: 100%;
+	width:90%;
+	display: block;
 }
 
 #user-profile{ /* this is also the header*/
@@ -134,7 +138,7 @@
 
 #rightside-container{
 	text-align: center;
-	width: 50%;
+	width: 45%;
 	height: auto;
 	float: right;
 	margin-top: 20px;
