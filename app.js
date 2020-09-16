@@ -5,15 +5,14 @@ const querystring = require('querystring'); //this might be able to be qs??
 const cookieParser = require('cookie-parser'); //idk what this does
 
 //this is set up so that you can run this app like this: node index.js _clientid_ _client_secret_
-//var myArgs = process.argv.slice(2);
-//const client_id = myArgs[0];		// client id
-//const client_secret = myArgs[1];	// client secret
-//const redirect_uri = 'http://localhost:8000/callback';				// this should work
-
-//this is for heroku
-const client_id = process.env.SPOTIFY_CLIENT_ID;
-const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-const redirect_uri = 'http://label-explorer.herokuapp.com/callback';
+//for local development. if the parameters are there it'll run like that
+var myArgs = process.argv.slice(2);
+const herokuRedirect = 'http://label-explorer.herokuapp.com/callback';
+const localRedirect = 'http://localhost:8000/callback';
+//if there are 2 parameters passed in, local args. else, internet args
+const client_id = (myArgs.length == 2) ? myArgs[0] : process.env.SPOTIFY_CLIENT_ID;
+const client_secret = (myArgs.length == 2) ? myArgs[1] : process.env.SPOTIFY_CLIENT_SECRET;
+const redirect_uri = (myArgs.length == 2) ? localRedirect : herokuRedirect;
 
 /**
  * Generates a random string containing numbers and letters

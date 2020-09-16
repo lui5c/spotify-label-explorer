@@ -2,7 +2,7 @@
   "name": "spotifywebapp",
   "version": "1.0.0",
   "description": "testing for label data app",
-  "main": "hellonode.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
