@@ -8,8 +8,8 @@
 }
 
 
-.leftside-container{
-	text-align: center;
+#leftside-container{
+	text-align: right;
 	width: 45%;
 	height: auto;
 	display: inline-block;
@@ -137,7 +137,7 @@
 }
 
 #rightside-container{
-	text-align: center;
+	text-align: left;
 	width: 45%;
 	height: auto;
 	float: right;
