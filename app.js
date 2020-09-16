@@ -13,7 +13,7 @@ const cookieParser = require('cookie-parser'); //idk what this does
 //this is for heroku
 const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-const redirect_uri = 'http://http://label-explorer.herokuapp.com/callback';
+const redirect_uri = 'http://label-explorer.herokuapp.com/callback';
 
 /**
  * Generates a random string containing numbers and letters
