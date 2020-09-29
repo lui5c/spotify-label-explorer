@@ -4,11 +4,23 @@ const cors = require("cors"); // cross-origin resource sharing
 const querystring = require('querystring'); //this might be able to be qs??
 const cookieParser = require('cookie-parser'); //idk what this does
 
-//this is set up so that you can run this app like this: node index.js _clientid_ _client_secret_
-//for local development. if the parameters are there it'll run like that
+/**
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+const url = require('url');
+const privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+const certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+const credentials = {key: privateKey, cert: certificate};
+**/
+
+
+//this is set up so that you can run this app like this: node index.js $client_id $client_secret
+//for local development. if the parameters are there it'll run like that. this way it's the same
+//app.js file for local and heroku
 var myArgs = process.argv.slice(2);
 const herokuRedirect = 'http://label-explorer.herokuapp.com/callback';
-const localRedirect = 'http://localhost:8000/callback';
+const localRedirect = 'http://192.168.1.190:8000/callback';
 //if there are 2 parameters passed in, local args. else, internet args
 const client_id = (myArgs.length == 2) ? myArgs[0] : process.env.SPOTIFY_CLIENT_ID;
 const client_secret = (myArgs.length == 2) ? myArgs[1] : process.env.SPOTIFY_CLIENT_SECRET;
@@ -38,6 +50,10 @@ const app = express();
 app.use(express.static(__dirname + '/public'))
 	.use(cors())
 	.use(cookieParser());
+/**
+app.use(express.urlencoded({
+	extended: true;
+})) **/
 
 app.get('/login', function(req, res) {
 	//create and store a cookie from random number
@@ -103,6 +119,7 @@ app.get('/callback', function (req, res){
         });
 
         // we can also pass the token to the browser to make requests from there
+        // this puts information in the URL for us to take and refresh requests.
         res.redirect('/#' +
           querystring.stringify({
             access_token: access_token,
@@ -147,12 +164,18 @@ app.get('/secret', (req, res) => {
 	res.send('Nice!')
 });
 
+app.get('/search', (req, res) => {
+	res.send(req.input);
+});
 
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 8000;
 }
 
+//httpServer.listen(8080);
+//httpsServer.listen(8443);
+
 app.listen(port, () =>{
-	console.log('Spotify Web app listening on port ' + port)
+	console.log('label explorer 1.1 listening on port ' + port)
 });

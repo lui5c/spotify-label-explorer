@@ -1,9 +1,13 @@
 <!doctype html>
 <html>
   <head>
-    <title>Example of the Authorization Code flow with Spotify</title>
+    <title>label explorer</title>
+
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
 	<link rel="stylesheet" href="static/stylesheet.css">
+
+
     <style type="text/css">
       #login, #loggedin {
         display: none;
@@ -20,12 +24,13 @@
   <body>
 		<!-- the login stuff -->
       <div id="login">
-		<div class="container">
-		<div id="header-container" style="font-size: 36px; padding-top: 15px">
-			spotify label explorer!!!!!! <div style="display: none" id="hidden-enter-button"> <a href="/login">enter >> </a></div>
-		</div>
+		<div class="container" id="info-container">
+			<div id="header-container"><h1>spotify label explorer v1.1!!!!!!</h1>
+				<div style="display: none" id="hidden-enter-button"> 
+					<a href="/login">enter >> </a>
+				</div>
+			</div> <!-- end header container -->
 		<h3>welcome!</h3>
-		<div style="font-size: 16px">
 		<p>this web app allows you to explore which labels are represented on a Spotify playlist and which labels an artist has released music on. </p>
 		<p>you can use it for whatever you want, but i like to use it to find music related to the things i already listen to. many recent music streaming 
 		platforms have made it a central feature in their program or software to integrate "radio" or other song suggestion mechanisms. these predictive playlists/radio stations are based on models of what the user already listen to. however, collections of music that have a similar motif, shared community, or other commonality already tend to be grouped together! they can be found by looking at the discography of a label.</p>
@@ -38,9 +43,8 @@
 		<p>in order to enter/use the label explorer, you need to log in with Spotify &rarr; <a href="/login">log in using Spotify</a> and you will be brought to the site!</p>
 		<h3>privacy</h3>
 		<p>your data will not be stored anywhere, will most certainly not be sold to anybody, and will not be used for any purpose or at any time other than what happens right now. if you want to see for yourself, the GitHub repository for this page is public and can be found here: <a href="https://github.com/lui5c/spotify-label-explorer">https://github.com/lui5c/spotify-label-explorer</a></p>
-		</div> <!-- the font size setter -->
 		</div> <!-- the container -->
-      </div>
+      </div> <!--login -->
 
 		<!-- once you're logged in -->
       <div id="loggedin" class="w3-container">
@@ -49,103 +53,27 @@
 		</div>
 		<div id="top-guide">
 
-		<span style="float:right"><div class="hideshow" id="hide-help">hide help</div> // <div class="hideshow" id="show-help">show help</div></span>
+		<span style="float:right; margin-top: 10px"><div class="hideshow" id="hide-help">hide help</div> // <div class="hideshow" id="show-help">show help</div></span>
 		<h1>welcome, <span id="person-name"></span>!</h1>
 		<div id="help">
-		<h3>how to use the label explorer </h3>
-		<p>in the left-hand pane, you can choose between browsing your playlists and searching for artists. if you click on an artist, a list of that artists's releases, along with the label that released them, will come up. if you click on a playlist, a list of the songs in the playlist will be displayed and you will be able to see what label each song on the playlist is on. in the right-hand pane, you can search Spotify for all of the releases by a particular label. you can hide or show these instructions with the button in the top right corner.</p>
+		<h3>how to use the label explorer</h3>
+		<p>click the search bar to begin your search. you can choose for your search to return artist results, playlist results, or album results (when searching for releases from a particular label). if you click on a playlist, you'll be shown the playlist with each song including the label that it was released on. if you click on an artist, you'll see all of their releases and which label each release was on. sometimes there are duplicate releases, which happens when artists have different record labels for distribution in different countries. by default, twenty results load per search. you can load more at the bottom, and you can open albums, playlists, and artists in spotify. </p>
 		<h3>a note about Spotify's indexing of labels</h3>
 		<p>currently, there is no way to view a label's discography in Spotify, nor is there a way to retrieve a label's discography using the Spotify Web API, which this site uses. this website uses the closest approximation possible (without indexing Spotify's entire database) which is to type the following into the search bar: <code>label:"sun records"</code>, replacing sun records with whatever record label's results you want to see. on this website, search by just typing the label into the search bar. in Spotify, you have to use the <code>label:""</code> syntax.</p>
 		</div> <!-- end help div -->
 		</div>
 		<!-- begin stuff to show when logged in that is NOT user profile -->
 		<div id="overall-container">
-			<div id="leftside-container">
-			
-			<ul class="nav nav-pills nav-fill nav-justified">
-				<li id="show-playlist-search"> <a class="nav-item">browse my playlists</a> </li>
-				<li id="show-artist-search"> <a class="nav-item">look up an artist</a> </li>
-			</ul>		
-			<div id="playlists-container">
-				<table class="playlist-table" id="playlist-list-table">
-					<thead>
-						<tr>
-							<th> playlist </th>
-							<th> length </th>
-							<th> playlistID </th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-				<div class="button-container">
-					<button class="table-populate" id="button-populate">&#43;</button>
-				</div>
-			</div> <!-- end playlist container -->
-			
-			<div id="artists-container">
-				<input id = "artist-search-box" type="text" class="form-control search-box" placeholder="search" name="search" />
-				<button class="btn btn-outline-success my-2 my-sm-0" id="artist-search-button">go!</button>
-				<table class="playlist-table" id="artist-search-results">
-				</table>
-			</div> <!-- end artist search container -->
-			</div> <!-- end left half container -->
-			<div id="rightside-container"> <!-- begin the search BY LABEL function -->
-				<div id="search-header">
-				<p> search by label </p>
-				</div>	
-				<input id="label-search-field" type="text" class="form-control search-box" placeholder="search" name="search" />
-				<button class="btn btn-outline-success my-2 my-sm-0" id="label-search-button">go!</button>
-				<button class="btn btn-outline-success my-2 my-sm-0" id="label-search-clear">clear results</button>
-				<div id="label-search-container">
-					<table id="label-search-results">
-					</table>
-					<div class="button-container">
-						<button class="table-populate" id="label-populate">&#43;</button>
-					</div>
-				</div> <!-- end album search results container -->
-			</div><!-- end right side container -->
+			<form id="page-form" spellcheck="false">
+  				<input type="text" name="input" class="input" id="search-input" placeholder="search" autocomplete="off" />
+  				<input type="button" name="label_search" value="label" class="threebuttons" id="label-search" />
+				<input type="button" name="artist_search" value="artists" class="threebuttons" id="artist-search"/>
+				<input type="button" name="playlist_search" value="playlists" class="threebuttons" id="playlist-search"/>
+			</form>
+			<ul id="results-list" class="list-group">
+			</ul>
+			<button id="showmore"> load more </button>
 		</div> <!-- end overall-container -->
-		
-		<!-- begin playlist overlay code -->
-		<div id="playlist-overlay">
-			<div id="overlaytitle">
-				<span id="selected-playlist-name">Playlist Name</span>
-				<span> by </span>
-				<span id="selected-playlist-owner">Playlist Owner</span>
-				<span id="close-playlist-overlay">close</span>
-			</div>
-			<div id="table-container">
-				<table id="songs-table" class="overlay-table">
-					<thead>
-					<tr>
-						<th> song </th>
-						<th> artist </th>
-						<th> album </th>
-						<th> label </th>
-					</tr>
-					</thead>
-				</table>
-			</div> <!-- end table-container -->
-		</div> <!-- end playlist overlay -->
-		<div id="releases-overlay">
-			<div id="overlaytitle">
-				releases by 
-				<span id="selected-artist">artist</span>
-				<span id="close-artist-overlay">close</span>
-			</div>
-			<div id="table-container">
-				<table id="releases-table" class="overlay-table">
-					<thead>
-					<tr>
-						<th> release name </th>
-						<th> date </th>
-						<th> label </th>
-					</tr>
-					</thead>
-				</table>
-			</div> <!-- end table-container -->
-		</div> <!-- end playlist overlay -->
 	</div> <!-- end #loggedin container -->
 	
 	<!-- beyond this, it's all <script> tags and then </body -->
@@ -158,11 +86,10 @@
         <dt>Refresh token</dt><dd class="text-overflow">{{refresh_token}}</dd>
       </dl>
     </script>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
-	
+	<!-- JS for spotify logging in -->
 	<script src="static/script.js"></script>
   </body>
 </html>
