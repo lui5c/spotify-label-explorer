@@ -195,13 +195,66 @@
 
   $('#showmore').hide();
 
+  //handling going back
+  //make back button appear on CLICK SEARCH
+  /*  going to make a stack (pop, push) of arrays
+  *   each array will have type of search
+  *   --> searchAndDisplay vs clickSearch
+  *   --> typeOfResult variable
+  *   --> searchQuery or link
+  */
+  var temp_sT;
+  var temp_rT;
+  var temp_q;
+  function setTempBackStack(searchType, resultType, query){
+    temp_sT = searchType;
+    temp_rT = resultType;
+    temp_q = query;
+  }
+
+  function finalizeBackStack(){
+    backbutton_stack.push([temp_sT, temp_rT, temp_q]);
+    console.log(backbutton_stack);
+    $('#backbutton').show();
+  }
+
+  var backbutton_stack = []; //initialize array
+
+  $('#backbutton').onclick = function(){
+    console.log("fuck");
+  };
+
+  function executeBackClick(){
+    console.log("fuck");
+    var worker = backbutton_stack.pop(); 
+    //above array is [searchType, resultType, query]
+    //also check if the top of the stack exists, if it doesn't, hide the button
+    if (worker[0] == "search"){
+      searchAndDisplay(worker[2], worker[1]);
+    }
+    if (worker[0] == "click"){
+      clickSearch(worker[1], worker[2]);
+    }
+    //hide if that was the last one
+    if (!backbutton_stack[backbutton_stack.length - 1]){
+      $('#backbutton').hide();
+    }
+  }
+  
+  $('#backbutton').hide();
+
+
   function barSearch(typeOfResult) {
+
     $("#results-list").empty();
     var searchQuery = searchInput.value;
     searchAndDisplay(searchQuery, typeOfResult);
   }
 
   function clickSearch(typeOfResult, link){
+    //store back button info
+    setTempBackStack("click", typeOfResult, link);
+
     $('#showmore').show();
     $("#results-list").empty();
     if (typeOfResult == "albums"){
@@ -254,6 +307,9 @@
 
   function searchAndDisplay(searchQuery, typeOfResult){
     $('#showmore').show();
+
+    setTempBackStack("search", typeOfResult, searchQuery);
+
     if (typeOfResult == "artists"){
       $("#results-list").empty();
       $.ajax({
@@ -553,12 +609,15 @@
     if (this.getAttribute("data-artistOnClick") == "true"){
       var newLink = this.getAttribute("data-href") + "/albums";
       clickSearch("albums", newLink);
+      finalizeBackStack();
     }
     if (this.getAttribute("data-labelSearch") == "true"){
       searchAndDisplay(this.getAttribute("data-label"), "albums");
+      finalizeBackStack();
     }
     if (this.getAttribute("data-playlistOnClick") == "true"){
       clickSearch("songs", this.getAttribute("data-href"));
+      finalizeBackStack();
     }
     /** what do we want album onclick to do?
     if (this.getAttribute("data-albumOnClick") == "true"){

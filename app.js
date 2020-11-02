@@ -4,9 +4,9 @@ const cors = require("cors"); // cross-origin resource sharing
 const querystring = require('querystring'); //this might be able to be qs??
 const cookieParser = require('cookie-parser'); //idk what this does
 
+const http = require('http');
 /**
 const fs = require('fs');
-const http = require('http');
 const https = require('https');
 const url = require('url');
 const privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
@@ -18,13 +18,17 @@ const credentials = {key: privateKey, cert: certificate};
 //this is set up so that you can run this app like this: node index.js $client_id $client_secret
 //for local development. if the parameters are there it'll run like that. this way it's the same
 //app.js file for local and heroku
+
+//http for localhost, https for heroku.
 var myArgs = process.argv.slice(2);
-const herokuRedirect = 'http://label-explorer.herokuapp.com/callback';
-const localRedirect = 'http://192.168.1.190:8000/callback';
+const herokuRedirect = 'https://label-explorer.herokuapp.com/callback';
+const localRedirect = 'http://localhost:8000/callback';
 //if there are 2 parameters passed in, local args. else, internet args
 const client_id = (myArgs.length == 2) ? myArgs[0] : process.env.SPOTIFY_CLIENT_ID;
 const client_secret = (myArgs.length == 2) ? myArgs[1] : process.env.SPOTIFY_CLIENT_SECRET;
 const redirect_uri = (myArgs.length == 2) ? localRedirect : herokuRedirect;
+
+console.log(client_id, client_secret, redirect_uri);
 
 /**
  * Generates a random string containing numbers and letters
