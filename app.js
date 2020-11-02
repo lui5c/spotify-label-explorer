@@ -22,7 +22,7 @@ const credentials = {key: privateKey, cert: certificate};
 //http for localhost, https for heroku.
 var myArgs = process.argv.slice(2);
 const herokuRedirect = 'https://label-explorer.herokuapp.com/callback';
-const localRedirect = 'http://localhost:8000/callback';
+const localRedirect = 'http://192.168.1.190:8000/callback';
 //if there are 2 parameters passed in, local args. else, internet args
 const client_id = (myArgs.length == 2) ? myArgs[0] : process.env.SPOTIFY_CLIENT_ID;
 const client_secret = (myArgs.length == 2) ? myArgs[1] : process.env.SPOTIFY_CLIENT_SECRET;
@@ -54,6 +54,7 @@ const app = express();
 app.use(express.static(__dirname + '/public'))
 	.use(cors())
 	.use(cookieParser());
+
 /**
 app.use(express.urlencoded({
 	extended: true;

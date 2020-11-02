@@ -1,7 +1,17 @@
-make artist search a native HTML form and do preventDefault()
-add a readme
-replace '+' button with 'load more...'
-include playlists that the person follows
-make releases clickable
- - maybe have an external listen on spotify link
-long term: phone accessible
+DONE	make artist search a native HTML form and do preventDefault()
+DONE	replace '+' button with 'load more...'
+DONE	make releases clickable
+DONE	 - maybe have an external listen on spotify link
+	add a readme
+	include playlists that the person follows
+DOING	long term: phone accessible
+  - 	currently working on formatting the list of results to look good on a phone. media resize is flame
+	add back button functionality (isn't it in mobilefriendly?)
+DONE	make every CSS thing relative	
+
+
+instructions: 
+git add ________
+git commit -m ""
+git push
+git push heroku master
