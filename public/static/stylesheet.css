@@ -177,24 +177,27 @@ h1 {
 
 @media only screen and (max-width: 1024px) {
 	/* For mobile phones: */
+
+	#login {
+		width: 100%;
+		padding: 0.1em;
+	}
+
+	.container p {
+		line-height: 1.1em;
+		padding: 0px;
+		margin-top: 0.4em;
+		border: 0px;
+		font-size: 4em;
+	}
+
 	.container {
-		margin-left: 5%;
-		margin-right: 5%;
-		padding-left: 0px;
-		padding-right: 0px;
-		width: 80%;
+		padding: 2em;
+		width: 100%;
 	}
 
-	#info-container {
-		padding-left: 0px;
-		padding-right: 0px;
-		font-size: 4.2em;
-		line-height: 130%;
-		overflow:;
-	}
-
-	#info-container h3 {
-		font-size: 2em;
+	#header-container {
+		width: 100%;
 	}
 
 	#top-guide {
@@ -207,18 +210,31 @@ h1 {
 
 	body {
 		font-size: 4.1em;
+		width: 100%;
 	}
 
 	h1 {
-		font-size: 1.8em;
+		font-size: 3.2em;
+		line-height: 0.9em;
 	}
 
 	h3 {
-		font-size: 1.2em;
+		font-size: 4.9em;
 	}
 
-	.overall-container {
-		padding: 0.8em;
+	/** logged in*/
+
+	#help h1{
+		font-size: 1.7em;
+	}
+
+	#help h3 {
+		font-size: 1.4em;
+	}
+
+	/** overall container begins above the form*/
+	#overall-container {
+		margin-top: 2em;
 	}
 
 	#results-list {
