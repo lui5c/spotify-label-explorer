@@ -199,6 +199,10 @@ h1 {
 	#header-container {
 		width: 100%;
 	}
+	
+	#header-container a {
+		font-size: 4em;
+	}
 
 	#top-guide {
 		padding: 0.8em;
